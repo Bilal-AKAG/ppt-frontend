@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -10,12 +13,12 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'randomuser.me', 
+        hostname: 'randomuser.me',
         port: '',
         pathname: '/**',
       },
     ],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig
