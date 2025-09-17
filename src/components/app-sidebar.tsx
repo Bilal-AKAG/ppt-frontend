@@ -1,6 +1,7 @@
 'use client'
 
 import { IconDashboard, IconLayout, IconSettings } from '@tabler/icons-react'
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
 import { NavMain } from '@/components/nav-main'
@@ -80,9 +81,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="!p-1.5">
-              <a href="/">
+              <Link href="/">
                 <span className="text-base font-bold">Presina AI</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

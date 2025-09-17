@@ -6,22 +6,21 @@ import { HeroPill } from '@/components/ui/hero-pill'
 import { TextEffect } from '@/components/ui/text-effect'
 import { HeroHeader } from './header'
 
-const transitionVariants: Variants = {
-  hidden: { opacity: 0, filter: "blur(10px)", y: 50 },
+const transitionVariants = {
+  hidden: { opacity: 0, filter: 'blur(10px)', y: 50 },
   visible: {
     opacity: 1,
-    filter: "blur(0px)",
+    filter: 'blur(0px)',
     y: 0,
-    transition: { type: "spring", bounce: 0.3, duration: 0.5 },
+    transition: { type: 'spring', bounce: 0.3, duration: 0.5 },
   },
-};
-
+}
 
 export default function HeroSection() {
   return (
     <>
       <HeroHeader />
-<main className="overflow-hidden py-24 md:py-30 flex justify-center">
+      <main className="overflow-hidden py-24 md:py-30 flex justify-center">
         <div
           aria-hidden
           className="absolute inset-0 isolate hidden opacity-65 contain-strict lg:block"
@@ -35,7 +34,7 @@ export default function HeroSection() {
             <div className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]"></div>
             <div className="mx-auto max-w-7xl px-6">
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
-                <AnimatedGroup variants={transitionVariants}>
+                <AnimatedGroup variants={{ container: transitionVariants }}>
                   <Link
                     href="/"
                     className="hover:bg-background dark:hover:border-t-border group mx-auto flex w-fit items-center  rounded-full  shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
@@ -130,7 +129,7 @@ export default function HeroSection() {
                   className="bg-linear-to-b to-background absolute inset-0 z-10 from-transparent from-35%"
                 />
                 {/* <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
-                  
+
                 </div> */}
               </div>
             </AnimatedGroup>
