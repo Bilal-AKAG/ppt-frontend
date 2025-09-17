@@ -1,18 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-
+import { useEffect, useState } from 'react'
+import { ExportButton } from '@/components/ExportButton'
+import { SlideWrapper } from '@/components/SlideWrapper'
+import { ChartSlide } from '@/components/slides/ChartSlide'
+import { ImageContentSlide } from '@/components/slides/ImageContentSlide'
+import { BulletSlide } from '@/components/slides/ListSlide'
+import { QuoteSlide } from '@/components/slides/QuoteSlide'
+import { TitleContentSlide } from '@/components/slides/TitleContentSlide'
 // Slide Components
 import { TitleSlide } from '@/components/slides/TitleSlide'
-import { BulletSlide } from '@/components/slides/ListSlide'
-import { ImageContentSlide } from '@/components/slides/ImageContentSlide'
-import { TitleContentSlide } from '@/components/slides/TitleContentSlide'
 import { TwoColumnSlide } from '@/components/slides/TwoColumnSlide'
-import { QuoteSlide } from '@/components/slides/QuoteSlide'
-import { ChartSlide } from '@/components/slides/ChartSlide'
-import { SlideWrapper } from '@/components/SlideWrapper'
-import { ExportButton } from '@/components/ExportButton'
 
 // Types
 import type { SlideData } from '@/types/slide'
@@ -20,7 +19,9 @@ import type { SlideData } from '@/types/slide'
 export default function SlidePage() {
   const router = useRouter()
   const [slides, setSlides] = useState<SlideData[]>([])
-  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({})
+  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>(
+    {}
+  )
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [presentationId, setPresentationId] = useState<string>('') // ✅ Add state
@@ -128,22 +129,24 @@ export default function SlidePage() {
 
         if (!res.ok) {
           const err = await res.json().catch(() => ({}))
-          throw new Error(err.message || `Failed to generate slides (${res.status})`)
+          throw new Error(
+            err.message || `Failed to generate slides (${res.status})`
+          )
         }
 
         const data = await res.json()
 
         if (Array.isArray(data.slides)) {
-    setSlides(data.slides)
-    
-    if (data._id) {
-      setPresentationId(data._id)
-      console.log('✅ Presentation saved with ID:', data._id) // ✅ Log here
-    } else {
-      setPresentationId('temp-' + Date.now())
-      console.log('📎 Using temp ID for demo')
-    }
-  }else {
+          setSlides(data.slides)
+
+          if (data._id) {
+            setPresentationId(data._id)
+            console.log('✅ Presentation saved with ID:', data._id) // ✅ Log here
+          } else {
+            setPresentationId('temp-' + Date.now())
+            console.log('📎 Using temp ID for demo')
+          }
+        } else {
           throw new Error('Invalid response format: expected slides array')
         }
       } catch (err: any) {
@@ -158,19 +161,20 @@ export default function SlidePage() {
   }, [router])
 
   // Handle image upload
-  const handleImageUpload = (slideId: string | number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const handleImageUpload =
+    (slideId: string | number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (!file) return
 
-    const reader = new FileReader()
-    reader.onload = () => {
-      setImageOverrides(prev => ({
-        ...prev,
-        [slideId]: reader.result as string
-      }))
+      const reader = new FileReader()
+      reader.onload = () => {
+        setImageOverrides((prev) => ({
+          ...prev,
+          [slideId]: reader.result as string,
+        }))
+      }
+      reader.readAsDataURL(file)
     }
-    reader.readAsDataURL(file)
-  }
 
   if (loading) {
     return (
@@ -196,22 +200,25 @@ export default function SlidePage() {
 
   return (
     <SlideWrapper>
-      <div id="slides-container" className="flex flex-col gap-8 p-6 bg-gray-50 min-h-screen">
+      <div
+        id="slides-container"
+        className="flex flex-col gap-8 p-6 bg-gray-50 min-h-screen"
+      >
         {slides.map((slide, index) => {
           const id = slide.id ?? index
           const imageKey = String(id)
 
           // ✅ Clean, safe picsum URL — no extra spaces
-          const seed = encodeURIComponent(slide.heading || slide.title || `slide-${index}`)
-          const imageUrl = imageOverrides[imageKey] ||
+          const seed = encodeURIComponent(
+            slide.heading || slide.title || `slide-${index}`
+          )
+          const imageUrl =
+            imageOverrides[imageKey] ||
             slide.image ||
             `https://picsum.photos/seed/${seed}/800/600.jpg?grayscale&blur=2` // ✅ Fixed: no extra space
 
           return (
-            <div
-              key={imageKey}
-              className="relative group slide-to-export"
-            >
+            <div key={imageKey} className="relative group slide-to-export">
               {slide.type === 'image-text' ? (
                 <>
                   <ImageContentSlide
@@ -225,7 +232,9 @@ export default function SlidePage() {
                   <div className="absolute inset-0 md:grid md:grid-cols-2 pointer-events-none">
                     <div
                       className={`relative ${
-                        slide.imagePosition === 'left' ? 'order-first' : 'order-last'
+                        slide.imagePosition === 'left'
+                          ? 'order-first'
+                          : 'order-last'
                       }`}
                     >
                       <input

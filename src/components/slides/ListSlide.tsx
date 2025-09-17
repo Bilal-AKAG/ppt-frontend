@@ -2,6 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 
 interface BulletSlideProps {
+  id?:number
   title: string
   bullets: string[]
   backgroundImage?: string

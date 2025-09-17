@@ -8,7 +8,7 @@ interface ImageContentSlideProps {
   imageUrl: string
   imagePosition?: "left" | "right"
   grayscale?: boolean
-  blurLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+  blurLevel?: 0 |1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
   theme?: "light" | "dark" | "gradient"
 }
 

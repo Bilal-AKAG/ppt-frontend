@@ -35,7 +35,7 @@ export interface SlideData {
   // quote
   quote?: string
   author?: string
-
+  imagePosition?: "left" | "right" | undefined
   // chart
   data?: { name: string; value: number }[]
 }
