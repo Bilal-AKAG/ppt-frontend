@@ -1,40 +1,41 @@
 export type SlideType =
-  | "title"
-  | "bullet"
-  | "image-text"
-  | "quote"
-  | "chart"
-  | "title-content"
-  | "two-column";
+  | 'title'
+  | 'bullet'
+  | 'image-text'
+  | 'quote'
+  | 'chart'
+  | 'title-content'
+  | 'two-column'
 
 export interface SlideData {
-  type: SlideType;
+  id?: string | number
+  type: SlideType
 
   // title
-  title?: string;
-  subtitle?: string;
+  title?: string
+  subtitle?: string
 
   // bullet
-  bullets?: string[];
+  bullets?: string[]
 
   // title-content
-  content?: string;
+  content?: string
 
   // two-column
-  leftTitle?: string;
-  leftContent?: string;
-  rightTitle?: string;
-  rightContent?: string;
+  leftTitle?: string
+  leftContent?: string
+  rightTitle?: string
+  rightContent?: string
 
   // image-text
-  image?: string;
-  heading?: string;
-  text?: string;
+  image?: string
+  heading?: string
+  text?: string
 
   // quote
-  quote?: string;
-  author?: string;
+  quote?: string
+  author?: string
 
   // chart
-  data?: { name: string; value: number }[];
+  data?: { name: string; value: number }[]
 }
