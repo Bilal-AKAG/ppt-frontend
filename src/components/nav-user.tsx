@@ -1,9 +1,6 @@
 'use client'
 
-import {
-  IconDotsVertical,
-  IconLogout,
-} from '@tabler/icons-react'
+import { IconDotsVertical, IconLogout } from '@tabler/icons-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -25,7 +22,7 @@ interface User {
   id: string
   name?: string
   email: string
-  image?: string
+  image?: string | null
 }
 
 interface NavUserProps {
@@ -46,25 +43,27 @@ export function NavUser({ user, onLogout }: NavUserProps) {
         <DropdownMenu>
           {/* User Button Trigger */}
           <DropdownMenuTrigger asChild>
-  <button
-    type="button"
-    className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium hover:bg-accent focus:bg-accent focus:outline-none data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-    onClick={(e) => {
-      // Remove any preventDefault or stopPropagation
-      console.log('Trigger clicked') // Debug
-    }}
-  >
-    <Avatar className="h-8 w-8 rounded-lg">
-      <AvatarImage src={avatarUrl} alt={displayName} />
-      <AvatarFallback>{displayName[0]?.toUpperCase()}</AvatarFallback>
-    </Avatar>
-    <div className="grid flex-1 text-left text-sm leading-tight">
-      <span className="truncate font-medium">{displayName}</span>
-      <span className="truncate text-xs text-muted-foreground">{displayEmail}</span>
-    </div>
-    <IconDotsVertical className="ml-auto h-4 w-4" />
-  </button>
-</DropdownMenuTrigger>
+            <button
+              type="button"
+              className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium hover:bg-accent focus:bg-accent focus:outline-none data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              onClick={(e) => {
+                // Remove any preventDefault or stopPropagation
+                console.log('Trigger clicked') // Debug
+              }}
+            >
+              <Avatar className="h-8 w-8 rounded-lg">
+                <AvatarImage src={avatarUrl} alt={displayName} />
+                <AvatarFallback>{displayName[0]?.toUpperCase()}</AvatarFallback>
+              </Avatar>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium">{displayName}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {displayEmail}
+                </span>
+              </div>
+              <IconDotsVertical className="ml-auto h-4 w-4" />
+            </button>
+          </DropdownMenuTrigger>
 
           {/* Dropdown Menu */}
           <DropdownMenuContent
@@ -77,11 +76,15 @@ export function NavUser({ user, onLogout }: NavUserProps) {
               <div className="flex items-center gap-2 px-1 py-1.5">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={avatarUrl} alt={displayName} />
-                  <AvatarFallback>{displayName[0]?.toUpperCase()}</AvatarFallback>
+                  <AvatarFallback>
+                    {displayName[0]?.toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{displayName}</span>
-                  <span className="truncate text-xs text-muted-foreground">{displayEmail}</span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    {displayEmail}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>

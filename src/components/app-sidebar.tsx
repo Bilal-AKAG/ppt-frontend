@@ -1,7 +1,10 @@
 'use client'
 
+import { IconDashboard, IconLayout, IconSettings } from '@tabler/icons-react'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
+import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
   SidebarContent,
@@ -11,9 +14,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { NavMain } from '@/components/nav-main'
-import { NavUser } from '@/components/nav-user'
-import { IconDashboard, IconLayout, IconSettings } from '@tabler/icons-react'
 
 // ✅ Auth client
 import { authClient } from '@/lib/auth-client'
@@ -23,7 +23,7 @@ interface User {
   id: string
   name?: string
   email: string
-  image?: string
+  image?: string | null
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -106,7 +106,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ) : (
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton onClick={() => (window.location.href = '/login')}>
+              <SidebarMenuButton
+                onClick={() => (window.location.href = '/login')}
+              >
                 Log in
               </SidebarMenuButton>
             </SidebarMenuItem>
